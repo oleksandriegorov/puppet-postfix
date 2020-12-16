@@ -34,6 +34,7 @@ group :development do
   gem 'beaker-puppet',                                           require: false
   gem 'beaker-rspec',                                            require: false
   gem 'beaker',                                                  require: false
+  gem 'beaker-docker',                                           require: false
   gem 'beaker-task_helper',                                      require: false
 end
 group :system_tests do
