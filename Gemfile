@@ -31,6 +31,10 @@ group :development do
   gem "ruby-augeas",                                             require: false
   gem "github_changelog_generator",                              require: false
   gem "beaker-pe",                                               require: false
+  gem 'beaker-puppet',                                           require: false
+  gem 'beaker-rspec',                                            require: false
+  gem 'beaker',                                                  require: false
+  gem 'beaker-task_helper',                                      require: false
 end
 group :system_tests do
   gem "beaker-hostgenerator",                         require: false
