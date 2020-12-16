@@ -23,7 +23,7 @@ describe 'postfix::hash' do
         it 'fails' do
           expect {
             is_expected.to contain_file('/tmp/foo')
-          }.to raise_error
+          }.to raise_error(Puppet::Error, %r{got Tuple})
         end
       end
 
