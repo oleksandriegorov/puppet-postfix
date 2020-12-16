@@ -222,56 +222,74 @@ describe 'postfix' do
             end
           end
           context 'when specifying a custom mastercf_content' do
-            let (:params) { {
-              :mastercf_content => 'testy'
-            } }
-            it 'should do stuff' do
+            let(:params) do
+              {
+                'mastercf_content' => 'testy',
+              }
+            end
+
+            it 'expected to do stuff' do
               skip 'need to write this still'
             end
           end
           context 'when specifying a custom mastercf_template' do
-            let (:params) { {
-              :mastercf_template => 'testy'
-            } }
-            it 'should do stuff' do
+            let(:params) do
+              {
+                'mastercf_template' => 'testy',
+              }
+            end
+
+            it 'expected to do stuff' do
               skip 'need to write this still'
             end
           end
           context 'when specifying a custom mastercf_source and mastercf_content' do
-            let (:params) { {
-              :mastercf_source => 'testy_1' ,
-              :mastercf_content => 'testy_2'
-            } }
-            it 'should fail' do
-              expect { should compile }.to raise_error(/mutually exclusive/)
+            let(:params) do
+              {
+                'mastercf_source' => 'testy_1',
+                'mastercf_content' => 'testy_2',
+              }
+            end
+
+            it 'expected to fail' do
+              expect { is_expected.to compile }.to raise_error(%r{%r{/mutually exclusive/}})
             end
           end
           context 'when specifying a custom mastercf_source and mastercf_template' do
-            let (:params) { {
-              :mastercf_source => 'testy_1' ,
-              :mastercf_template => 'testy_2'
-            } }
-            it 'should fail' do
-              expect { should compile }.to raise_error(/mutually exclusive/)
+            let(:params) do
+              {
+                'mastercf_source' => 'testy_1',
+                'mastercf_template' => 'testy_2',
+              }
+            end
+
+            it 'expected to fail' do
+              expect { is_expected.to compile }.to raise_error(%r{%r{/mutually exclusive/}})
             end
           end
           context 'when specifying a custom mastercf_content and mastercf_template' do
-            let (:params) { {
-              :mastercf_content => 'testy_1' ,
-              :mastercf_template => 'testy_2'
-            } }
-            it 'should fail' do
-              expect { should compile }.to raise_error(/mutually exclusive/)
+            let(:params) do
+              {
+                'mastercf_content' => 'testy_1',
+                'mastercf_template' => 'testy_2',
+              }
+            end
+
+            it 'expected to fail' do
+              expect { is_expected.to compile }.to raise_error(%r{/mutually exclusive/})
             end
           end
           context 'when specifying a mastercf_source and custom mastercf_content and mastercf_template' do
-            let (:params) { {
-              :mastercf_source => 'testy_1' ,
-              :mastercf_content => 'testy_2' ,
-              :mastercf_template => 'testy_3'
-            } }
-            it 'should fail' do
-              expect { should compile }.to raise_error(/mutually exclusive/)
+            let(:params) do
+              {
+                'mastercf_source' => 'testy_1',
+                'mastercf_content' => 'testy_2',
+                'mastercf_template' => 'testy_3',
+              }
+            end
+
+            it 'expected to fail' do
+              expect { is_expected.to compile }.to raise_error(%r{/mutually exclusive/})
             end
           end
           context 'when specifying a custom master_smtp' do
@@ -302,7 +320,11 @@ describe 'postfix' do
             end
           end
           context 'when mta is enabled' do
-            let(:params) { { mta: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5' } }
+            let(:params) do
+              {
+                mta: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5'
+              }
+            end
 
             it 'configures postfix as a minimal MTA, delivering mail to the mydestination param' do
               is_expected.to contain_postfix__config('mydestination').with_value('1.2.3.4')
@@ -313,7 +335,11 @@ describe 'postfix' do
             end
             it { is_expected.to contain_class('postfix::mta') }
             context 'and satellite is also enabled' do
-              let(:params) { { mta: true, satellite: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5' } }
+              let(:params) do
+                {
+                  mta: true, satellite: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5'
+                }
+              end
 
               it 'fails' do
                 expect { is_expected.to compile }.to raise_error(%r{Please disable one})
@@ -331,7 +357,11 @@ describe 'postfix' do
             end
           end
           context 'when specifying myorigin' do
-            let(:params) { { myorigin: 'localhost' } }
+            let(:params) do
+              {
+                myorigin: 'localhost',
+              }
+            end
 
             it 'creates a postfix::config defined type with myorigin specified properly' do
               is_expected.to contain_postfix__config('myorigin').with_value('localhost')
@@ -343,14 +373,22 @@ describe 'postfix' do
             end
           end
           context 'when specifying a root_mail_recipient' do
-            let(:params) { { root_mail_recipient: 'foo' } }
+            let(:params) do
+              {
+                root_mail_recipient: 'foo',
+              }
+            end
 
             it 'contains a Mailalias resource directing roots mail to the required user' do
               is_expected.to contain_mailalias('root').with_recipient('foo')
             end
           end
           context 'when specifying satellite' do
-            let(:params) { { satellite: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5' } }
+            let(:params) do
+              {
+                satellite: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5'
+              }
+            end
             let :pre_condition do
               "class { 'augeas': }"
             end
@@ -363,7 +401,11 @@ describe 'postfix' do
               is_expected.to contain_postfix__config('transport_maps').with_value('hash:/etc/postfix/transport')
             end
             context 'and mta is also enabled' do
-              let(:params) { { mta: true, satellite: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5' } }
+              let(:params) do
+                {
+                  mta: true, satellite: true, mydestination: '1.2.3.4', relayhost: '2.3.4.5'
+                }
+              end
 
               it 'fails' do
                 expect { is_expected.to compile }.to raise_error(%r{Please disable one})
@@ -371,49 +413,77 @@ describe 'postfix' do
             end
           end
           context 'when specifying smtp_listen' do
-            let(:params) { { smtp_listen: 'all' } }
+            let(:params) do
+              {
+                smtp_listen: 'all',
+              }
+            end
 
             it 'does stuff' do
               skip 'need to write this still'
             end
           end
           context 'when use_amavisd is true' do
-            let(:params) { { use_amavisd: true } }
+            let(:params) do
+              {
+                use_amavisd: true,
+              }
+            end
 
             it 'updates master.cf with the specified flags to amavis' do
               is_expected.to contain_file('/etc/postfix/master.cf').with_content(%r{amavis unix})
             end
           end
           context 'when use_dovecot_lda is true' do
-            let(:params) { { use_dovecot_lda: true } }
+            let(:params) do
+              {
+                use_dovecot_lda: true,
+              }
+            end
 
             it 'updates master.cf with the specified flags to dovecot' do
               is_expected.to contain_file('/etc/postfix/master.cf').with_content(%r{dovecot.*\n.* user=vmail:vmail })
             end
           end
           context 'when use_schleuder is true' do
-            let(:params) { { use_schleuder: true } }
+            let(:params) do
+              {
+                use_schleuder: true,
+              }
+            end
 
             it 'updates master.cf with the specified flags to schleuder' do
               is_expected.to contain_file('/etc/postfix/master.cf').with_content(%r{schleuder})
             end
           end
           context 'when use_sympa is true' do
-            let(:params) { { use_sympa: true } }
+            let(:params) do
+              {
+                use_sympa: true,
+              }
+            end
 
             it 'updates master.cf to include sympa' do
               is_expected.to contain_file('/etc/postfix/master.cf').with_content(%r{sympa})
             end
           end
           context 'when manage_root_alias is false' do
-            let(:params) { { manage_root_alias: false } }
+            let(:params) do
+              {
+                manage_root_alias: false,
+              }
+            end
 
             it 'does not manage root mailalias' do
               is_expected.not_to contain_mailalias('root')
             end
           end
           context 'when manage_mailx is false' do
-            let(:params) { { manage_mailx: false } }
+            let(:params) do
+              {
+                manage_mailx: false,
+              }
+            end
 
             it 'does not have mailx package' do
               is_expected.not_to contain_package('mailx')
