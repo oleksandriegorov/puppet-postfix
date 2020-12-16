@@ -252,7 +252,7 @@ describe 'postfix' do
             end
 
             it 'expected to fail' do
-              expect { is_expected.to compile }.to raise_error(/mutually exclusive/)
+              expect { is_expected.to compile }.to raise_error(%r{mutually exclusive})
             end
           end
           context 'when specifying a custom mastercf_source and mastercf_template' do
@@ -264,7 +264,7 @@ describe 'postfix' do
             end
 
             it 'expected to fail' do
-              expect { is_expected.to compile }.to raise_error(/mutually exclusive/)
+              expect { is_expected.to compile }.to raise_error(%r{mutually exclusive})
             end
           end
           context 'when specifying a custom mastercf_content and mastercf_template' do
@@ -276,7 +276,7 @@ describe 'postfix' do
             end
 
             it 'expected to fail' do
-              expect { is_expected.to compile }.to raise_error(/mutually exclusive/)
+              expect { is_expected.to compile }.to raise_error(%r{mutually exclusive})
             end
           end
           context 'when specifying a mastercf_source and custom mastercf_content and mastercf_template' do
@@ -289,7 +289,7 @@ describe 'postfix' do
             end
 
             it 'expected to fail' do
-              expect { is_expected.to compile }.to raise_error(/mutually exclusive/)
+              expect { is_expected.to compile }.to raise_error(%r{mutually exclusive})
             end
           end
           context 'when specifying a custom master_smtp' do

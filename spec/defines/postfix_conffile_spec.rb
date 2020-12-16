@@ -23,7 +23,7 @@ describe 'postfix::conffile' do
         it 'fails' do
           expect {
             is_expected.to contain_file('postfix conffile foo')
-          }.to raise_error(Puppet::PreformattedError,%r{got Tuple})
+          }.to raise_error(Puppet::PreformattedError, %r{got Tuple})
         end
       end
 

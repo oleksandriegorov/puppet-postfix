@@ -24,7 +24,7 @@ describe 'postfix::transport' do
         it 'fails' do
           expect {
             is_expected.to contain_augeas('Postfix transport - foo')
-          }.to raise_error(/expects a value of type Undef or String, got Tuple/)
+          }.to raise_error(%r{expects a value of type Undef or String, got Tuple})
         end
       end
 
@@ -39,7 +39,7 @@ describe 'postfix::transport' do
         it 'fails' do
           expect {
             is_expected.to contain_augeas('Postfix transport - foo')
-          }.to raise_error(/expects a value of type Undef or String, got Tuple/)
+          }.to raise_error(%r{expects a value of type Undef or String, got Tuple})
         end
       end
 
@@ -54,7 +54,7 @@ describe 'postfix::transport' do
         it 'fails' do
           expect {
             is_expected.to contain_augeas('Postfix transport - foo')
-          }.to raise_error(/value, got Tuple/)
+          }.to raise_error(%r{value, got Tuple})
         end
       end
 
@@ -84,7 +84,7 @@ describe 'postfix::transport' do
         it 'fails' do
           expect {
             is_expected.to contain_augeas('Postfix transport - foo')
-          }.to raise_error(/Error while evaluating a Resource Statement/)
+          }.to raise_error(%r{Error while evaluating a Resource Statement})
         end
       end
 
