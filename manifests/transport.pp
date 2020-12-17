@@ -49,12 +49,7 @@ define postfix::transport (
 ) {
   include ::postfix::augeas
 
-  if ($nexthop) {
-    $smtp_nexthop = ($nexthop =~ /\[.*\]/)
-  }
-  else {
-    $smtp_nexthop = undef
-  }
+  $smtp_nexthop = (String($nexthop) =~ /\[.*\]/)
 
   case $ensure {
     'present': {
